@@ -1,6 +1,5 @@
 package ru.yandex.dmitriy010379.task;
 
-// Класс для подзадачи
 public class Subtask extends Task {
     private final int epicId; // Идентификатор эпика, к которому относится подзадача
 

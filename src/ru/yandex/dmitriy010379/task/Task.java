@@ -2,7 +2,6 @@ package ru.yandex.dmitriy010379.task;
 
 import java.util.Objects;
 
-// Базовый класс для задачи
 public class Task {
 
     protected int id;                               // Уникальный идентификатор задачи
@@ -13,7 +12,6 @@ public class Task {
     public Task(String name, String description, TaskStatus status) {
         this.name = name;
         this.description = description;
-        this.status = status;               // По умолчанию статус NEW
     }
 
     public int getId() {

@@ -1,10 +1,9 @@
+// Класс для менеджера задач
 package ru.yandex.dmitriy010379.manager;
 
 import ru.yandex.dmitriy010379.task.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 // Менеджер задач
 public class TaskManager {
@@ -13,16 +12,11 @@ public class TaskManager {
     protected final Map<Integer, Subtask> subtasks = new HashMap<>();     // Менджер хранения субтасков
     protected static int idCounter = 0;                                   // Счетчик для уникальных ID
 
-    private int setNewId() {
-        return (++idCounter);
-    }     // Генерация уникального ID
-
     public Task createTask(Task task) {
         if (task.getId() > 0) {
             return task;
         }
-        int newId = setNewId();
-        task.setId(newId);
+        task.setId(setNewId());
         tasks.put(task.getId(), task);
         return task;
     }               //создание таска
@@ -31,8 +25,7 @@ public class TaskManager {
         if (epic.getId() > 0) {
             return epic;
         }
-        int newId = setNewId();
-        epic.setId(newId);
+        epic.setId(setNewId());
         epics.put(epic.getId(), epic);
         return epic;
     }               //создание эпика
@@ -43,11 +36,10 @@ public class TaskManager {
                 !epics.containsKey(subtask.getEpicId())) {               //если такой субтаск уже существует
             return subtask;
         }
-        int newId = setNewId();
-        subtask.setId(newId);
+        subtask.setId(setNewId());
         subtasks.put(subtask.getId(), subtask);
         Epic epic = epics.get(subtask.getEpicId());
-        epic.getSubtaskId().add(newId);
+        epic.getSubtaskId().add(subtask.getId());
         updateSubtask(subtask);
         return subtask;
     }   //создание субтаска
@@ -61,39 +53,6 @@ public class TaskManager {
         return task;
     }               //обновление таска
 
-    public Epic updateEpic(Epic epic) {
-        if (epic.getId() == 0 ||
-                tasks.containsKey(epic.getId())) {
-            return epic;
-        }
-        epics.put(epic.getId(), epic);
-        return epic;
-    }               //обновление эпика (наличие данного метода спорное!)
-
-    public void updateEpicStatus(int epicId) {
-        Epic epic = epics.get(epicId);
-        boolean allDone = true;
-        boolean allNew = true;
-
-        for (int subtaskId : epic.getSubtaskId()) {
-            TaskStatus status = subtasks.get(subtaskId).getStatus();
-            if (status != TaskStatus.DONE) {
-                allDone = false;
-            }
-            if (status != TaskStatus.NEW) {
-                allNew = false;
-            }
-        }
-
-        if (allDone) {
-            epic.setStatus(TaskStatus.DONE);
-        } else if (allNew) {
-            epic.setStatus(TaskStatus.NEW);
-        } else {
-            epic.setStatus(TaskStatus.IN_PROGRESS);
-        }
-    }       //метод для обновления статуса эпика
-
     public Subtask updateSubtask(Subtask subtask) {
         if (subtask.getId() == 0 ||                             //если нет такого субтаска
                 subtask.getEpicId() == 0 ||                     //если субтаску не назначен эпик
@@ -105,16 +64,16 @@ public class TaskManager {
         return subtask;
     }   //изменение статуса субтаска ведет к изменению статуса эпика
 
-    public Map getAllTask() {
-        return tasks;
+    public List<Task> getAllTask() {
+        return new ArrayList<>(tasks.values());
     }            //получение всех задач
 
-    public Map getAllEpic() {
-        return epics;
+    public List<Epic> getAllEpic() {
+        return new ArrayList<>(epics.values());
     }            //получение всех эпиков
 
-    public Map getAllSubtask() {
-        return subtasks;
+    public List<Subtask> getAllSubtask() {
+        return new ArrayList<>(subtasks.values());
     }      //получение всех субтасков
 
     public void dellAllTask() {
@@ -138,6 +97,9 @@ public class TaskManager {
             epics.subtaskId.clear();
         }
         subtasks.clear();
+        for (Epic epics : epics.values()) {
+            updateEpicStatus(epics.getId());            //обновления статуса всех эпиков
+        }
     }                   //удаление всех субтасков
 
     public Task getTaskById(int id) {
@@ -186,11 +148,61 @@ public class TaskManager {
             return;
         }
         List<Integer> list = epics.get(id).subtaskId;
-        for (int i = list.size(); i > 0 ; i--) {
-            Integer lists = list.get(i-1);
+        for (int i = list.size(); i > 0; i--) {
+            Integer lists = list.get(i - 1);
             subtasks.remove(lists);
         }
         epics.remove(id);
     }                 //удаление субтаска по Id
+
+    public List<Subtask> getAllSubtaskByEpic(Epic epic) {
+        if (!epics.containsValue(epic)) {
+            return null;
+        }
+        ArrayList<Subtask> list = new ArrayList<>();
+        for (int index : epic.subtaskId) {
+            list.add(subtasks.get(index));
+        }
+        return list;
+    } //получение всех субтасков определенного эпика
+
+    private int setNewId() {
+        return (++idCounter);
+    }     // Генерация уникального ID
+
+    private void updateEpicStatus(int epicId) {
+        Epic epic = epics.get(epicId);
+        boolean allDone = true;
+        boolean allNew = true;
+
+        for (int subtaskId : epic.getSubtaskId()) {
+            TaskStatus status = subtasks.get(subtaskId).getStatus();
+            if (status != TaskStatus.DONE) {
+                allDone = false;
+            }
+            if (status != TaskStatus.NEW) {
+                allNew = false;
+            }
+        }
+        if (allDone) {
+            epic.setStatus(TaskStatus.DONE);
+        } else if (allNew) {
+            epic.setStatus(TaskStatus.NEW);
+        } else {
+            epic.setStatus(TaskStatus.IN_PROGRESS);
+        }
+    }       //метод для обновления статуса эпика
+
+    private Epic updateEpic(Epic epic) {
+        if (epic.getId() == 0 ||
+                tasks.containsKey(epic.getId())) {
+            return epic;
+        }
+        epics.put(epic.getId(), epic);
+        return epic;
+    }               //обновление эпика
+
+
 }
+
 

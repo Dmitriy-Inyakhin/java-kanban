@@ -16,7 +16,6 @@ public class Main {
         Task task2 = new Task("Task2", "Description Task2.", TaskStatus.NEW);
         task2 = taskManager.createTask(task2);
 
-
         Epic epic1 = new Epic("Epic1", "Description Epic1.", TaskStatus.NEW);
         epic1 = taskManager.createEpic(epic1);
 
@@ -25,7 +24,6 @@ public class Main {
 
         Subtask subtask2 = new Subtask("Subtask2", "Description Subtask2.", TaskStatus.NEW, epic1.getId());
         subtask2 = taskManager.createSubtask(subtask2);
-
 
         Epic epic2 = new Epic("Epic2", "Description Epic2.", TaskStatus.NEW);
         epic2 = taskManager.createEpic(epic2);
