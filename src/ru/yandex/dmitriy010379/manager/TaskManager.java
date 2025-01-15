@@ -10,7 +10,7 @@ public class TaskManager {
     protected final Map<Integer, Task> tasks = new HashMap<>();           // Менджер хранения задач
     protected final Map<Integer, Epic> epics = new HashMap<>();           // Менджер хранения эпиков
     protected final Map<Integer, Subtask> subtasks = new HashMap<>();     // Менджер хранения субтасков
-    protected static int idCounter = 0;                                   // Счетчик для уникальных ID
+    protected int idCounter = 0;                                   // Счетчик для уникальных ID
 
     public Task createTask(Task task) {
         if (task.getId() > 0) {
@@ -166,6 +166,15 @@ public class TaskManager {
         return list;
     } //получение всех субтасков определенного эпика
 
+    public Epic updateEpic(Epic epic) {
+        if (epic.getId() == 0 ||
+                tasks.containsKey(epic.getId())) {
+            return epic;
+        }
+        epics.put(epic.getId(), epic);
+        return epic;
+    }               //обновление эпика
+
     private int setNewId() {
         return (++idCounter);
     }     // Генерация уникального ID
@@ -192,15 +201,5 @@ public class TaskManager {
             epic.setStatus(TaskStatus.IN_PROGRESS);
         }
     }       //метод для обновления статуса эпика
-
-    private Epic updateEpic(Epic epic) {
-        if (epic.getId() == 0 ||
-                tasks.containsKey(epic.getId())) {
-            return epic;
-        }
-        epics.put(epic.getId(), epic);
-        return epic;
-    }               //обновление эпика
-
 
 }
