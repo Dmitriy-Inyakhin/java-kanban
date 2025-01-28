@@ -10,6 +10,7 @@ import java.util.Objects;
 public class InMemoryHistoryManager implements HistoryManager{
 
     private final List<Task> historyStorage = new ArrayList<>();
+    private final int MAXSIZETASK = 10;
 
     @Override
     public void addTask(Task task) {
@@ -17,7 +18,7 @@ public class InMemoryHistoryManager implements HistoryManager{
             return;
         }
         historyStorage.add(task.getSnapShot());
-        if (historyStorage.size() > 10) {
+        if (historyStorage.size() > MAXSIZETASK) {
             historyStorage.removeFirst();
         }
     }
