@@ -71,5 +71,5 @@ public interface TaskManager {
     Epic updateEpic(Epic epic)               //обновление эпика
     ;
 
-    List<Task> getHistory();
+    List<? extends Task> getHistory();
 }

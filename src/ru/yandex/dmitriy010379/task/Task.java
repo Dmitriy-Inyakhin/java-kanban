@@ -16,7 +16,7 @@ public class Task {
         this.status = status;
     }
 
-    private Task(Integer id, String name, String description, TaskStatus status) {
+    public Task(Integer id, String name, String description, TaskStatus status) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -74,8 +74,8 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task {" +
-                "name='" + name +
+        return this.getClass().getSimpleName() +
+                "{name='" + name +
                 ", id=" + id + '\'' +
                 ", description='" + description + '\'' +
                 ", status=" + status +

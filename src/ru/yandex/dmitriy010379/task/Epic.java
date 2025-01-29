@@ -13,6 +13,14 @@ public class Epic extends Task {
         super(name, description, status);
     }
 
+    private Epic(int id, String name, String description, TaskStatus status) {
+        super(id, name, description, status);
+    }
+
+    public Epic getSnapShot() {
+        return new Epic(this.getId(), this.getName(), this.getDescription(), this.getStatus());
+    }               //получаем "снимок" ("отпечаток") задачи на момент обращения к ней
+
     public List<Integer> getSubtaskId() {           //получаем субтаск по Id
         return subtaskId;
     }
@@ -24,8 +32,8 @@ public class Epic extends Task {
 
     @Override
     public String toString() {
-        return "Epic {" +
-                 "name='" + name +
+        return this.getClass().getSimpleName() +
+                 "{name='" + name +
                 ", id=" + id +'\'' +
                 ", description='" + description + '\'' +
                 ", status=" + status +

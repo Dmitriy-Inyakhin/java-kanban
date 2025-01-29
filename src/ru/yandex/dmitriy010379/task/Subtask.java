@@ -11,15 +11,24 @@ public class Subtask extends Task {
         this.epicId = epicId;
     }
 
+    private Subtask(int id, String name, String description, TaskStatus status, int epicId) {
+        super(id, name, description, status);
+        this.epicId = epicId;
+    }
+
     public int getEpicId() {        //возвращаем ID эпика, в который входит субтаск
         return epicId;
     }
 
+    public Subtask getSnapShot() {
+        return new Subtask(this.getId(), this.getName(), this.getDescription(), this.getStatus(), this. getEpicId());
+    }               //получаем "снимок" ("отпечаток") задачи на момент обращения к ней
+
 
     @Override
     public String toString() {
-        return "Subtask {" +
-               "name='" + name +
+        return this.getClass().getSimpleName() +
+               "{name='" + name +
                 ", id=" + id +
                 ", epicId=" + epicId +'\'' +
                 ", description='" + description + '\'' +

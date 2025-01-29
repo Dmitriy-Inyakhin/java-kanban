@@ -7,7 +7,7 @@ public class Main {
         TaskManager manager = Managers.getDefaultTaskManager();
 
         printInPreviousSprint(manager);
-        //printInPreviousTwoSprint(manager);
+        printInPreviousTwoSprint(manager);
 
     }
 
@@ -85,8 +85,6 @@ public class Main {
             System.out.println(task);
         }
 
-
-
         System.out.println("* * * * * * * * * * * * * * * * * * * * * * * * * * *");
     }
 
@@ -142,16 +140,16 @@ public class Main {
         System.out.println("\n" + manager.getAllEpic());
         System.out.println("\n" + manager.getAllSubtask());
         System.out.println("* * * * * * * * * * * * * * * * * * * * * * * * * * *");
-
-        //И, наконец, попробуйте удалить одну из задач и один из эпиков.
-        System.out.println("Удаляем одну из задач и один из эпиков. Распечатываем объекты");
-        manager.dellTaskById(task1.getId());
-        manager.dellEpicById(epic1.getId());
-
-        System.out.println("\n" + manager.getAllTask());
-        System.out.println("\n" + manager.getAllEpic());
-        System.out.println("\n" + manager.getAllSubtask());
-        System.out.println("* * * * * * * * * * * * * * * * * * * * * * * * * * *");
+//
+//        //И, наконец, попробуйте удалить одну из задач и один из эпиков.
+//        System.out.println("Удаляем одну из задач и один из эпиков. Распечатываем объекты");
+//        manager.dellTaskById(task1.getId());
+//        manager.dellEpicById(epic1.getId());
+//
+//        System.out.println("\n" + manager.getAllTask());
+//        System.out.println("\n" + manager.getAllEpic());
+//        System.out.println("\n" + manager.getAllSubtask());
+//        System.out.println("* * * * * * * * * * * * * * * * * * * * * * * * * * *");
 
     }
 }
