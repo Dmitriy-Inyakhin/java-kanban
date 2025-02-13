@@ -44,7 +44,7 @@ public class Main {
         System.out.println("\n" + manager.getAllSubtask());
         System.out.println("* * * * * * * * * * * * * * * * * * * * * * * * * * *");
 
-        PrintHistory(manager);                          //Распечатываем историю - она должна быть пустой!
+        printHistory(manager);                          //Распечатываем историю - она должна быть пустой!
 
         //Запросите созданные задачи несколько раз в разном порядке.
         //После каждого запроса выведите историю и убедитесь, что в ней нет повторов
@@ -57,34 +57,34 @@ public class Main {
         manager.getSubtaskById(subtask2.getId());
         manager.getSubtaskById(subtask3.getId());
 
-        PrintHistory(manager);                          //Распечатываем историю
+        printHistory(manager);                          //Распечатываем историю
 
         manager.getSubtaskById(subtask1.getId());
         manager.getTaskById(task2.getId());
 
-        PrintHistory(manager);                          //Распечатываем историю
+        printHistory(manager);                          //Распечатываем историю
 
         manager.getEpicById(epic2.getId());
         manager.getTaskById(task2.getId());
         manager.getSubtaskById(subtask2.getId());
 
-        PrintHistory(manager);                          //Распечатываем историю
+        printHistory(manager);                          //Распечатываем историю
 
         //Удалите задачу (и одну подзадачу), которая есть в истории, и проверьте, что при печати она не будет выводиться
         manager.dellTaskById(task2.getId());
         manager.dellSubtaskById(subtask3.getId());
 
-        PrintHistory(manager);                          //Распечатываем историю
+        printHistory(manager);                          //Распечатываем историю
 
         //Удалите эпик с тремя подзадачами и убедитесь, что из истории удалился как сам эпик, так и все его подзадачи
         manager.dellEpicById(epic1.getId());
 
-        PrintHistory(manager);                          //Распечатываем историю
+        printHistory(manager);                          //Распечатываем историю
 
 
     }
 
-    public static void PrintHistory(TaskManager manager) {
+    public static void printHistory(TaskManager manager) {
         System.out.println("Распечатываем историю:");
         for (Task task : manager.getHistory()) {
             System.out.println(task);
