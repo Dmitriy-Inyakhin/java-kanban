@@ -32,6 +32,7 @@ class TaskTest {
         assertEquals(task1Modified, taskSecond, "Таски разные.");
     }
 
+
     @Test
     void getSnapShot() {
         Task task1Modified = manager.createTask(task1);
