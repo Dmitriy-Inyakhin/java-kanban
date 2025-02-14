@@ -1,4 +1,4 @@
-// Класс для эпиков //
+// Класс для эпиков
 
 package ru.yandex.dmitriy010379.task;
 
@@ -24,13 +24,13 @@ public class Epic extends Task {
 
     @Override
     public String toString() {
-        return "Epic {" +
-                 "name='" + name +
-                ", id=" + id +'\'' +
+        return this.getClass().getSimpleName() +
+                "{name='" + name +
+                ", id=" + id + '\'' +
                 ", description='" + description + '\'' +
                 ", status=" + status +
                 ", subtaskId" + subtaskId +
-                '}' +"\n";
+                '}' + "\n";
     }
 
     @Override

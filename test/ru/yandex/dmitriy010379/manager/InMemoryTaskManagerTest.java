@@ -13,6 +13,7 @@ class InMemoryTaskManagerTest {
     Task task1 = new Task("Task1", "Description Task1.", TaskStatus.NEW);
     Epic epic1 = new Epic("Epic1", "Description Epic1.", TaskStatus.NEW);
 
+
     int taskId = 0;
     int epicId = 0;
     int subtaskId = 0;
