@@ -1,4 +1,4 @@
-// Класс для подзадачи //
+// Класс для подзадачи
 package ru.yandex.dmitriy010379.task;
 
 import java.util.Objects;
@@ -15,13 +15,12 @@ public class Subtask extends Task {
         return epicId;
     }
 
-
     @Override
     public String toString() {
-        return "Subtask {" +
-               "name='" + name +
+        return this.getClass().getSimpleName() +
+                "{name='" + name +
                 ", id=" + id +
-                ", epicId=" + epicId +'\'' +
+                ", epicId=" + epicId + '\'' +
                 ", description='" + description + '\'' +
                 ", status=" + status +
                 '}' + "\n";

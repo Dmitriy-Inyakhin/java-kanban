@@ -1,31 +1,20 @@
-// Базовый класс для задачи //
+// Базовый класс для задачи
 package ru.yandex.dmitriy010379.task;
 
 import java.util.Objects;
 
 public class Task {
 
-    protected int id;                               // Уникальный идентификатор задачи
-    protected String name;                    // Название задачи
-    protected String description;             // Описание задачи
-    protected TaskStatus status;                    // Статус задачи
+    protected int id;                                       // Уникальный идентификатор задачи
+    protected String name;                                  // Название задачи
+    protected String description;                           // Описание задачи
+    protected TaskStatus status;                            // Статус задачи
 
     public Task(String name, String description, TaskStatus status) {
         this.name = name;
         this.description = description;
         this.status = status;
     }
-
-    private Task(Integer id, String name, String description, TaskStatus status) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.status = status;
-    }
-
-    public Task getSnapShot() {
-        return new Task(this.getId(), this.getName(), this.getDescription(), this.getStatus());
-    }               //получаем "снимок" ("отпечаток") задачи на момент обращения к ней
 
     public int getId() {
         return id;
@@ -47,7 +36,7 @@ public class Task {
         this.id = id;
     }
 
-    public void setName(String name) {
+    private void setName(String name) {
         this.name = name;
     }
 
@@ -74,8 +63,8 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task {" +
-                "name='" + name +
+        return this.getClass().getSimpleName() +
+                "{name='" + name +
                 ", id=" + id + '\'' +
                 ", description='" + description + '\'' +
                 ", status=" + status +
