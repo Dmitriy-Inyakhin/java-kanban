@@ -1,8 +1,8 @@
 // Класс для менеджера задач
 
-package ru.yandex.dmitriy010379.manager;
+package manager;
 
-import ru.yandex.dmitriy010379.task.*;
+import task.*;
 
 import java.util.*;
 

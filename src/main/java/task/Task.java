@@ -1,5 +1,5 @@
 // Базовый класс для задачи
-package ru.yandex.dmitriy010379.task;
+package task;
 
 import java.util.Objects;
 

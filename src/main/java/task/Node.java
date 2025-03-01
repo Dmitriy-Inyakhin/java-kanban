@@ -1,4 +1,4 @@
-package ru.yandex.dmitriy010379.task;
+package task;
 
 public class Node {
     public Task task;

@@ -1,8 +1,6 @@
-package ru.yandex.dmitriy010379.manager;
+package manager;
 
-import ru.yandex.dmitriy010379.task.Epic;
-import ru.yandex.dmitriy010379.task.Subtask;
-import ru.yandex.dmitriy010379.task.Task;
+import task.*;
 
 import java.util.List;
 

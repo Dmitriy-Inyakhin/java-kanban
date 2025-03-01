@@ -1,6 +1,6 @@
 // Класс для эпиков
 
-package ru.yandex.dmitriy010379.task;
+package task;
 
 import java.util.ArrayList;
 import java.util.List;

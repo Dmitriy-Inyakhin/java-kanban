@@ -1,4 +1,6 @@
-package ru.yandex.dmitriy010379.manager;
+package manager;
+
+import java.io.File;
 
 public final class Managers {
 
@@ -8,6 +10,11 @@ public final class Managers {
     public static TaskManager getDefaultTaskManager() {
         return new InMemoryTaskManager();
     }
+
+    public static TaskManager getDefaultTaskManager(File file) {
+        return new FileBackedTaskManager(file);
+    }
+
 
     public static HistoryManager getDefaultHistoryManager() {
         return new InMemoryHistoryManager();

@@ -1,12 +1,10 @@
-package ru.yandex.dmitriy010379.task;
+package task;
 
 import org.junit.jupiter.api.BeforeEach;
-
 import org.junit.jupiter.api.Test;
-import ru.yandex.dmitriy010379.manager.Managers;
-import ru.yandex.dmitriy010379.manager.TaskManager;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import manager.*;
 
 class TaskTest {
     TaskManager manager;

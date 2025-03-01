@@ -1,5 +1,5 @@
 // Класс для подзадачи
-package ru.yandex.dmitriy010379.task;
+package task;
 
 import java.util.Objects;
 

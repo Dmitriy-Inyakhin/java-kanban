@@ -1,17 +1,42 @@
-package ru.yandex.dmitriy010379.main;
+package main;
 
-import ru.yandex.dmitriy010379.task.*;
-import ru.yandex.dmitriy010379.manager.*;
+import task.*;
+import manager.*;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 
 public class Main {
+
+    private static final String FILE_NAME = "src/main/resources/storage.csv";
+
     public static void main(String[] args) {
-        TaskManager manager = Managers.getDefaultTaskManager();
+        File fileStorage = createFile(FILE_NAME);
+        TaskManager manager = Managers.getDefaultTaskManager(fileStorage);
         printSprint_6_solution(manager);
+
+    }
+
+    private static File createFile(String fileName) {
+        try {
+            return Files.createFile(Paths.get(fileName)).toFile();
+//            File fileStorage = new File(FILE_NAME);
+//            if (fileStorage.createNewFile()) {
+//                return fileStorage;
+//            }
+        } catch (IOException exception) {
+            System.out.println("Файл для файлового хранилища не создан :( " + exception.getMessage());
+        }
+        throw new UnsupportedOperationException("К сожалению, файл не создан");
+
     }
 
     private static void printSprint_6_solution(TaskManager manager) {
         //Реализуйте в классе Main опциональный пользовательский сценарий
-        System.out.println("* * * * * * * * * * * * * * * * * * * * * * * * * * *");
+        System.out.println("* ".repeat(15));
         System.out.println("Создаем две задачи, а также эпик с тремя подзадачами и эпик без подзадач.");
 
         //Создайте две задачи, а также эпик с двумя подзадачами и эпик с одной подзадачей.
@@ -42,7 +67,7 @@ public class Main {
         System.out.println("\n" + manager.getAllTask());
         System.out.println("\n" + manager.getAllEpic());
         System.out.println("\n" + manager.getAllSubtask());
-        System.out.println("* * * * * * * * * * * * * * * * * * * * * * * * * * *");
+        System.out.println("* ".repeat(15));
 
         printHistory(manager);                          //Распечатываем историю - она должна быть пустой!
 
@@ -89,6 +114,6 @@ public class Main {
         for (Task task : manager.getHistory()) {
             System.out.println(task);
         }
-        System.out.println("* * * * * * * * * * * * * * * * * * * * * * * * * * *");
+        System.out.println("* ".repeat(15));
     }
 }
