@@ -12,7 +12,7 @@ class EpicTest {
 
     @Test
     void getSubtaskId() {
-        manager = Managers.getDefaultTaskManager();
+        manager = Managers.getTaskManager();
         Epic epic1 = new Epic("Test addNewEpic1", "Test addNewEpic1 description.", TaskStatus.NEW);
         Epic epic1M = manager.createEpic(epic1);
 
@@ -34,7 +34,7 @@ class EpicTest {
 
     @Test
     void isEmptySubtasks() {
-        manager = Managers.getDefaultTaskManager();
+        manager = Managers.getTaskManager();
         Epic epic1 = new Epic("Test addNewEpic1", "Test addNewEpic1 description.", TaskStatus.NEW);
         Epic epic1M = manager.createEpic(epic1);
         List<Subtask> subtasks = manager.getAllSubtaskByEpic(epic1M);

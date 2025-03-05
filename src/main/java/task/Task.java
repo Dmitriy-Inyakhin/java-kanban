@@ -16,6 +16,14 @@ public class Task {
         this.status = status;
     }
 
+    public Task(String string) {
+        String[] parts = string.split(",");
+        this.name = parts[2];
+        this.description = parts[4];
+        this.status = TaskStatus.valueOf(parts[3]);
+        this.id = Integer.parseInt(parts[0]);
+    }
+
     public int getId() {
         return id;
     }
@@ -30,6 +38,10 @@ public class Task {
 
     public TaskStatus getStatus() {
         return status;
+    }
+
+    public TaskType getType() {
+        return TaskType.TASK;
     }
 
     public void setId(int id) {

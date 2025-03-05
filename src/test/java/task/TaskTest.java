@@ -13,7 +13,7 @@ class TaskTest {
 
     @BeforeEach
     void BeforeEach() {
-        manager = Managers.getDefaultTaskManager();
+        manager = Managers.getTaskManager();
     }
 
     @Test

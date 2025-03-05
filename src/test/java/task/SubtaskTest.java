@@ -9,7 +9,7 @@ class SubtaskTest {
 
     @Test
     void getEpicId() {
-        manager = Managers.getDefaultTaskManager();
+        manager = Managers.getTaskManager();
 
         Epic epic1 = new Epic("Test addNewEpic1", "Test addNewEpic1 description.", TaskStatus.NEW);
         Epic epic1M = manager.createEpic(epic1);
