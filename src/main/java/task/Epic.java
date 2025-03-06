@@ -15,6 +15,7 @@ public class Epic extends Task {
 
     public Epic(String name) {
         super(name);
+
     }
 
     public List<Integer> getSubtaskId() {           //получаем субтаск по Id

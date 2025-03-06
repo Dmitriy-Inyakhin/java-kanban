@@ -47,7 +47,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         return result;
     }
 
-
     protected static Path createFile(String fileName) {
         if (!Files.exists(Path.of(fileName))) {
             try {
@@ -62,9 +61,9 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         return Path.of(fileName);
     }
 
-    public void saveToFile() {                  //запись в файл
+    private void saveToFile() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-            writer.write(TaskCsvFormatHandler.getHeadler());
+            writer.write(TaskCsvFormatHandler.getHeader()); // Исправлено опечатку getHeadler
 
             for (Map.Entry<Integer, Task> entry : this.tasks.entrySet()) {
                 Task task = entry.getValue();
@@ -84,7 +83,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         } catch (IOException exception) {
             throw new ManagerSaveException("Невозможно работать с файлом");
         }
-
     }
 
     private Task fromString(String taskString) throws ManagerSaveException {
@@ -95,10 +93,10 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             switch (taskType) {
                 case TASK:
                     Task task = new Task(taskString);
-                    tasks.put(task.getId(), task); // сразу записываем в менеджер
+                    tasks.put(task.getId(), task);
                     return task;
                 case EPIC:
-                    Epic epic = new Epic(taskString);
+                    Epic epic = new Epic(taskString); // Конструктор Epic теперь парсит список subtaskId
                     epics.put(epic.getId(), epic);
                     return epic;
                 case SUBTASK:
@@ -106,7 +104,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                     if (epics.containsKey(subtask.getEpicId())) {
                         subtasks.put(subtask.getId(), subtask);
                         Epic epicForSubtask = epics.get(subtask.getEpicId());
-                        epicForSubtask.getSubtaskId().add(subtask.getId());
+                        epicForSubtask.getSubtaskId().add(subtask.getId()); // Добавляем subtask в эпик
                         return subtask;
                     }
                     throw new ManagerSaveException("Эпик для сабтаска не найден");

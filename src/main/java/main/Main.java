@@ -24,7 +24,7 @@ public class Main {
         печать из ранее созданного файла
          */
 
-//        printSprint_6_solution(manager);
+        printSprint_6_solution(manager);
 
         printSprint_7_solution(manager);
 
@@ -57,7 +57,7 @@ public class Main {
         Subtask subtask1 = new Subtask("Subtask1", "Description Subtask1", TaskStatus.NEW, epic1.getId());
         subtask1 = manager.createSubtask(subtask1);
 
-        Subtask subtask2 = new Subtask("Subtask2", "Description Subtask2", TaskStatus.NEW, epic1.getId());
+        Subtask subtask2 = new Subtask("Subtask2", "Description Subtask2", TaskStatus.DONE, epic1.getId());
         subtask2 = manager.createSubtask(subtask2);
 
         Subtask subtask3 = new Subtask("Subtask3", "Description Subtask3", TaskStatus.NEW, epic1.getId());
@@ -102,18 +102,6 @@ public class Main {
         manager.getSubtaskById(subtask2.getId());
 
         printHistory(manager);                          //Распечатываем историю
-
-//        //Удалите задачу (и одну подзадачу), которая есть в истории, и проверьте, что при печати она не будет выводиться
-//        manager.dellTaskById(task2.getId());
-//        manager.dellSubtaskById(subtask3.getId());
-//
-//        printHistory(manager);                          //Распечатываем историю
-//
-//        //Удалите эпик с тремя подзадачами и убедитесь, что из истории удалился как сам эпик, так и все его подзадачи
-//        manager.dellEpicById(epic1.getId());
-//
-//        printHistory(manager);                          //Распечатываем историю
-
 
     }
 

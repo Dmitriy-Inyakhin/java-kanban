@@ -8,7 +8,7 @@ public class TaskCsvFormatHandler {
 
     public static final String DELIMITER = ",";
 
-    public static String getHeadler() {
+    public static String getHeader() {
         return "id,type,name,status,description,epic\n";
     }
 
