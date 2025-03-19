@@ -1,6 +1,6 @@
 // Класс для эпиков
 
-package ru.yandex.dmitriy010379.task;
+package task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +13,11 @@ public class Epic extends Task {
         super(name, description, status);
     }
 
+    public Epic(String name) {
+        super(name);
+
+    }
+
     public List<Integer> getSubtaskId() {           //получаем субтаск по Id
         return subtaskId;
     }
@@ -21,6 +26,10 @@ public class Epic extends Task {
         return subtaskId.isEmpty();
     }
 
+    @Override
+    public TaskType getType() {
+        return TaskType.EPIC;
+    }
 
     @Override
     public String toString() {

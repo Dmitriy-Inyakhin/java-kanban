@@ -1,10 +1,7 @@
-package ru.yandex.dmitriy010379.manager;
+package manager;
 
 import org.junit.jupiter.api.Test;
-import ru.yandex.dmitriy010379.task.Epic;
-import ru.yandex.dmitriy010379.task.Subtask;
-import ru.yandex.dmitriy010379.task.Task;
-import ru.yandex.dmitriy010379.task.TaskStatus;
+import task.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 

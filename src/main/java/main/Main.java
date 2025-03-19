@@ -1,40 +1,73 @@
-package ru.yandex.dmitriy010379.main;
+package main;
 
-import ru.yandex.dmitriy010379.task.*;
-import ru.yandex.dmitriy010379.manager.*;
+import task.*;
+import manager.*;
+
+import java.io.File;
+import java.io.IOException;
+
 
 public class Main {
-    public static void main(String[] args) {
-        TaskManager manager = Managers.getDefaultTaskManager();
+
+    private static final String FILE_NAME = "src/main/resources/storage.csv";
+
+    public static void main(String[] args) throws IOException {
+
+        TaskManager manager = Managers.getTaskManager(new File(FILE_NAME));
+
+        /*
+        для проверки работоспособности удаляем файл storage.csv
+        запускаем метод printSprint_6_solution(manager); -
+        он создает файл storage.csv и записывает в него задачи.
+        после этого комментируем метод printSprint_6_solution(manager);
+        и запускаем метод printSprint_7_solution(manager); который производит
+        печать из ранее созданного файла
+         */
+
         printSprint_6_solution(manager);
+
+        printSprint_7_solution(manager);
+
+
+    }
+
+    private static void printSprint_7_solution(TaskManager manager) {
+        System.out.println("Распечатываем загруженные из файла списки эпиков, задач и подзадач");
+        System.out.println("\n" + manager.getAllTask());
+        System.out.println("\n" + manager.getAllEpic());
+        System.out.println("\n" + manager.getAllSubtask());
+        System.out.println("* ".repeat(15));
     }
 
     private static void printSprint_6_solution(TaskManager manager) {
         //Реализуйте в классе Main опциональный пользовательский сценарий
-        System.out.println("* * * * * * * * * * * * * * * * * * * * * * * * * * *");
+        System.out.println("* ".repeat(15));
         System.out.println("Создаем две задачи, а также эпик с тремя подзадачами и эпик без подзадач.");
 
         //Создайте две задачи, а также эпик с двумя подзадачами и эпик с одной подзадачей.
-        Task task1 = new Task("Task1", "Description Task1.", TaskStatus.NEW);
+        Task task1 = new Task("Task1", "Description Task1", TaskStatus.NEW);
         task1 = manager.createTask(task1);
 
-        Task task2 = new Task("Task2", "Description Task2.", TaskStatus.NEW);
+        Task task2 = new Task("Task2", "Description Task2", TaskStatus.NEW);
         task2 = manager.createTask(task2);
 
-        Epic epic1 = new Epic("Epic1", "Description Epic1.", TaskStatus.NEW);
+        Epic epic1 = new Epic("Epic1", "Description Epic1", TaskStatus.NEW);
         epic1 = manager.createEpic(epic1);
 
-        Subtask subtask1 = new Subtask("Subtask1", "Description Subtask1.", TaskStatus.NEW, epic1.getId());
+        Subtask subtask1 = new Subtask("Subtask1", "Description Subtask1", TaskStatus.NEW, epic1.getId());
         subtask1 = manager.createSubtask(subtask1);
 
-        Subtask subtask2 = new Subtask("Subtask2", "Description Subtask2.", TaskStatus.NEW, epic1.getId());
+        Subtask subtask2 = new Subtask("Subtask2", "Description Subtask2", TaskStatus.DONE, epic1.getId());
         subtask2 = manager.createSubtask(subtask2);
 
-        Subtask subtask3 = new Subtask("Subtask3", "Description Subtask3.", TaskStatus.NEW, epic1.getId());
+        Subtask subtask3 = new Subtask("Subtask3", "Description Subtask3", TaskStatus.NEW, epic1.getId());
         subtask3 = manager.createSubtask(subtask3);
 
-        Epic epic2 = new Epic("Epic2", "Description Epic2.", TaskStatus.NEW);
+        Epic epic2 = new Epic("Epic2", "Description Epic2", TaskStatus.NEW);
         epic2 = manager.createEpic(epic2);
+
+        Subtask subtask4 = new Subtask("Subtask4", "Description Subtask4", TaskStatus.NEW, epic2.getId());
+        subtask4 = manager.createSubtask(subtask4);
 
 
         //Распечатайте созданные списки эпиков, задач и подзадач
@@ -42,7 +75,7 @@ public class Main {
         System.out.println("\n" + manager.getAllTask());
         System.out.println("\n" + manager.getAllEpic());
         System.out.println("\n" + manager.getAllSubtask());
-        System.out.println("* * * * * * * * * * * * * * * * * * * * * * * * * * *");
+        System.out.println("* ".repeat(15));
 
         printHistory(manager);                          //Распечатываем историю - она должна быть пустой!
 
@@ -70,18 +103,6 @@ public class Main {
 
         printHistory(manager);                          //Распечатываем историю
 
-        //Удалите задачу (и одну подзадачу), которая есть в истории, и проверьте, что при печати она не будет выводиться
-        manager.dellTaskById(task2.getId());
-        manager.dellSubtaskById(subtask3.getId());
-
-        printHistory(manager);                          //Распечатываем историю
-
-        //Удалите эпик с тремя подзадачами и убедитесь, что из истории удалился как сам эпик, так и все его подзадачи
-        manager.dellEpicById(epic1.getId());
-
-        printHistory(manager);                          //Распечатываем историю
-
-
     }
 
     public static void printHistory(TaskManager manager) {
@@ -89,6 +110,6 @@ public class Main {
         for (Task task : manager.getHistory()) {
             System.out.println(task);
         }
-        System.out.println("* * * * * * * * * * * * * * * * * * * * * * * * * * *");
+        System.out.println("* ".repeat(15));
     }
 }

@@ -1,6 +1,6 @@
-package ru.yandex.dmitriy010379.manager;
+package manager;
 
-import ru.yandex.dmitriy010379.task.Task;
+import task.Task;
 
 import java.util.List;
 

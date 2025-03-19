@@ -1,23 +1,18 @@
-package ru.yandex.dmitriy010379.task;
+package task;
 
 import org.junit.jupiter.api.Test;
-import ru.yandex.dmitriy010379.manager.Managers;
-import ru.yandex.dmitriy010379.manager.TaskManager;
+import manager.*;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class EpicTest {
     TaskManager manager;
 
     @Test
     void getSubtaskId() {
-        manager = Managers.getDefaultTaskManager();
+        manager = Managers.getTaskManager();
         Epic epic1 = new Epic("Test addNewEpic1", "Test addNewEpic1 description.", TaskStatus.NEW);
         Epic epic1M = manager.createEpic(epic1);
 
@@ -39,7 +34,7 @@ class EpicTest {
 
     @Test
     void isEmptySubtasks() {
-        manager = Managers.getDefaultTaskManager();
+        manager = Managers.getTaskManager();
         Epic epic1 = new Epic("Test addNewEpic1", "Test addNewEpic1 description.", TaskStatus.NEW);
         Epic epic1M = manager.createEpic(epic1);
         List<Subtask> subtasks = manager.getAllSubtaskByEpic(epic1M);

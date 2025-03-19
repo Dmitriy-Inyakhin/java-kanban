@@ -1,4 +1,4 @@
-package ru.yandex.dmitriy010379.task;
+package task;
 
 public enum TaskStatus {
     NEW,

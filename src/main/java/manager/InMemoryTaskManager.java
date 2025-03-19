@@ -1,16 +1,16 @@
 // Класс для менеджера задач
 
-package ru.yandex.dmitriy010379.manager;
+package manager;
 
-import ru.yandex.dmitriy010379.task.*;
+import task.*;
 
 import java.util.*;
 
 // Менеджер задач
 public class InMemoryTaskManager implements TaskManager {
-    protected final Map<Integer, Task> tasks = new HashMap<>();           // Менджер хранения задач
-    protected final Map<Integer, Epic> epics = new HashMap<>();           // Менджер хранения эпиков
-    protected final Map<Integer, Subtask> subtasks = new HashMap<>();     // Менджер хранения субтасков
+    protected static final Map<Integer, Task> tasks = new HashMap<>();           // Менджер хранения задач
+    protected static final Map<Integer, Epic> epics = new HashMap<>();           // Менджер хранения эпиков
+    protected static final Map<Integer, Subtask> subtasks = new HashMap<>();     // Менджер хранения субтасков
 
     private final HistoryManager historyManager = Managers.getDefaultHistoryManager();      //переменная для хранения
     // истории просмотров
@@ -247,7 +247,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     //метод для обновления статуса эпика
-    private void updateEpicStatus(int epicId) {
+    public void updateEpicStatus(int epicId) {
         Epic epic = epics.get(epicId);
         boolean allDone = true;
         boolean allNew = true;

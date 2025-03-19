@@ -1,8 +1,7 @@
-package ru.yandex.dmitriy010379.task;
+package task;
 
 import org.junit.jupiter.api.Test;
-import ru.yandex.dmitriy010379.manager.Managers;
-import ru.yandex.dmitriy010379.manager.TaskManager;
+import manager.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 class SubtaskTest {
@@ -10,7 +9,7 @@ class SubtaskTest {
 
     @Test
     void getEpicId() {
-        manager = Managers.getDefaultTaskManager();
+        manager = Managers.getTaskManager();
 
         Epic epic1 = new Epic("Test addNewEpic1", "Test addNewEpic1 description.", TaskStatus.NEW);
         Epic epic1M = manager.createEpic(epic1);

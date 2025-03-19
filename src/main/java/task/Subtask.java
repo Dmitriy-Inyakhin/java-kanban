@@ -1,5 +1,5 @@
 // Класс для подзадачи
-package ru.yandex.dmitriy010379.task;
+package task;
 
 import java.util.Objects;
 
@@ -11,8 +11,20 @@ public class Subtask extends Task {
         this.epicId = epicId;
     }
 
+    public Subtask(String string) {
+        super(string);
+        String[] parts = string.split(",");
+        this.epicId = Integer.parseInt(parts[5]);
+    }
+
+
     public int getEpicId() {        //возвращаем ID эпика, в который входит субтаск
         return epicId;
+    }
+
+    @Override
+    public TaskType getType() {
+        return TaskType.SUBTASK;
     }
 
     @Override

@@ -1,15 +1,10 @@
-package ru.yandex.dmitriy010379.manager;
+package manager;
 
 import org.junit.jupiter.api.Test;
-import ru.yandex.dmitriy010379.task.Epic;
-import ru.yandex.dmitriy010379.task.Node;
-import ru.yandex.dmitriy010379.task.Task;
-import ru.yandex.dmitriy010379.task.TaskStatus;
+import task.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 

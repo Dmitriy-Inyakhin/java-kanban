@@ -1,7 +1,7 @@
-package ru.yandex.dmitriy010379.manager;
+package manager;
 
-import ru.yandex.dmitriy010379.task.Node;
-import ru.yandex.dmitriy010379.task.Task;
+import task.Node;
+import task.Task;
 
 import java.util.List;
 import java.util.ArrayList;
