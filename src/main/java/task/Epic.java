@@ -2,6 +2,8 @@
 
 package task;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -9,8 +11,8 @@ import java.util.Objects;
 public class Epic extends Task {
     public List<Integer> subtaskId = new ArrayList<>(); // Список подзадач
 
-    public Epic(String name, String description, TaskStatus status) {
-        super(name, description, status);
+    public Epic(String name, String description, TaskStatus status, Duration duration, LocalDateTime startTime) {
+        super(name, description, status, duration, startTime);
     }
 
     public Epic(String name) {
@@ -39,6 +41,9 @@ public class Epic extends Task {
                 ", description='" + description + '\'' +
                 ", status=" + status +
                 ", subtaskId" + subtaskId +
+                ", duration=" + duration +
+                ", startTime=" + getStartTime() +
+                ", endTime=" + getEndTime() +
                 '}' + "\n";
     }
 

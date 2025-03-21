@@ -3,40 +3,49 @@ package manager;
 import task.Node;
 import task.Task;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class InMemoryHistoryManager implements HistoryManager {
 
     private final Map<Integer, Node> nodeMap = new HashMap<>();
 
     private Node head;                      //Указатель на первый элемент списка. Он же first
-    private Node tail;                      //Указатель на последний элемент списка. Он же last
+    private Node tail;                      //Указатель на последний элемент списка. Он же  last
 
     // добавляем задачу в историю просмотров с помощью HashMap
     @Override
     public void addTask(Task task) {
+//        if (task != null && !task.getName().isEmpty()) {
+//            if (nodeMap.get(task.getId()) != null) {
+//                removeNode(nodeMap.get(task.getId()));
+//            }
+//            linkLast(task);
+//        }
         if (task != null && !task.getName().isEmpty()) {
-            if (nodeMap.get(task.getId()) != null) {
-                removeNode(nodeMap.get(task.getId()));
-            }
+            Optional.ofNullable(nodeMap.get(task.getId()))
+                    .ifPresent(this::removeNode); // Если задача уже есть в истории, удаляем её
             linkLast(task);
         }
     }
 
     // получаем историю просмотров
     @Override
+//    public List<Task> getHistory() {
+//        List<Task> result = new ArrayList<>();
+//        Node node = head;
+//        while (Objects.nonNull(node)) {
+//            result.add(node.getTask());
+//            node = node.next;
+//        }
+//        return result;
+//    }
+
     public List<Task> getHistory() {
-        List<Task> result = new ArrayList<>();
-        Node node = head;
-        while (Objects.nonNull(node)) {
-            result.add(node.getTask());
-            node = node.next;
-        }
-        return result;
+        return Stream.iterate(head, Objects::nonNull, node -> node.next)
+                .map(Node::getTask)
+                .collect(Collectors.toList());
     }
 
     // метод удаления Ноды по Id таска из списка

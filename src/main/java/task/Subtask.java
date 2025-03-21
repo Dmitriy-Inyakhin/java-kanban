@@ -1,13 +1,15 @@
 // Класс для подзадачи
 package task;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Subtask extends Task {
     private final int epicId; // Идентификатор эпика, к которому относится подзадача
 
-    public Subtask(String name, String description, TaskStatus status, int epicId) {
-        super(name, description, status);
+    public Subtask(String name, String description, TaskStatus status, int epicId, Duration duration, LocalDateTime startTime) {
+        super(name, description, status, duration, startTime);
         this.epicId = epicId;
     }
 
@@ -35,6 +37,9 @@ public class Subtask extends Task {
                 ", epicId=" + epicId + '\'' +
                 ", description='" + description + '\'' +
                 ", status=" + status +
+                ", duration=" + duration +
+                ", startTime=" + getStartTime() +
+                ", endTime=" + getEndTime() +
                 '}' + "\n";
 
     }

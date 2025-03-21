@@ -12,7 +12,6 @@ public final class Managers {
     }
 
     public static TaskManager getTaskManager(File file) {
-        //FileBackedTaskManager.createFile(file.toString());
         return FileBackedTaskManager.loadFromFile(file);
     }
 
