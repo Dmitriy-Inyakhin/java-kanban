@@ -27,7 +27,7 @@ public class Main {
         печать из ранее созданного файла
          */
 
-        printSprint_6_solution(manager);
+//        printSprint_6_solution(manager);
 
         printSprint_7_solution(manager);
 

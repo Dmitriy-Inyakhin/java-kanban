@@ -49,29 +49,30 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 //        }
 //        return result;
 //    }
-public static FileBackedTaskManager loadFromFile(File file) throws ManagerLoadException {
-    FileBackedTaskManager result = new FileBackedTaskManager(file);
-    try {
-        // Проверяем, что файл не пустой
-        if (file.length() == 0) {
-            return result;
+
+    public static FileBackedTaskManager loadFromFile(File file) throws ManagerLoadException {
+        FileBackedTaskManager result = new FileBackedTaskManager(file);
+        try {
+            // Проверяем, что файл не пустой
+            if (file.length() == 0) {
+                return result;
+            }
+
+            Path path = file.toPath();
+
+            // Пропускаем заголовок и обрабатываем строки через Stream
+            Files.lines(path)
+                    .skip(1) // Пропускаем первую строку (заголовок)
+                    .filter(line -> !line.isEmpty()) // Фильтруем пустые строки
+                    .forEach(result::fromString); // Обрабатываем каждую строку
+
+        } catch (FileNotFoundException e) {
+            throw new ManagerLoadException("Файл не найден");
+        } catch (IOException e) {
+            throw new ManagerLoadException("Ошибка чтения файла");
         }
-
-        Path path = file.toPath();
-
-        // Пропускаем заголовок и обрабатываем строки через Stream
-        Files.lines(path)
-                .skip(1) // Пропускаем первую строку (заголовок)
-                .filter(line -> !line.isEmpty()) // Фильтруем пустые строки
-                .forEach(result::fromString); // Обрабатываем каждую строку
-
-    } catch (FileNotFoundException e) {
-        throw new ManagerLoadException("Файл не найден");
-    } catch (IOException e) {
-        throw new ManagerLoadException("Ошибка чтения файла");
+        return result;
     }
-    return result;
-}
 
 
 //    protected static Path createFile(String fileName) {
@@ -158,74 +159,75 @@ private void saveToFile() {
 }
 
 
-    private Task fromString(String taskString) throws ManagerSaveException {
-        String[] data = taskString.split(",");
-        try {
-            TaskType taskType = TaskType.valueOf(data[1]);
-
-            switch (taskType) {
-                case TASK:
-                    Task task = new Task(taskString);
-                    tasks.put(task.getId(), task);
-                    return task;
-                case EPIC:
-                    Epic epic = new Epic(taskString); // Конструктор Epic теперь парсит список subtaskId
-                    epics.put(epic.getId(), epic);
-                    return epic;
-                case SUBTASK:
-                    Subtask subtask = new Subtask(taskString);
-                    if (epics.containsKey(subtask.getEpicId())) {
-                        subtasks.put(subtask.getId(), subtask);
-                        Epic epicForSubtask = epics.get(subtask.getEpicId());
-                        epicForSubtask.getSubtaskId().add(subtask.getId()); // Добавляем subtask в эпик
-                        return subtask;
-                    }
-                    throw new ManagerSaveException("Эпик для сабтаска не найден");
-                default:
-                    throw new ManagerSaveException("Неподдерживаемый тип задачи");
-            }
-        } catch (IllegalArgumentException e) {
-            throw new ManagerSaveException("Ошибка парсинга строки: " + taskString, e);
-        }
-    }
-
 //    private Task fromString(String taskString) throws ManagerSaveException {
-//        return Arrays.stream(taskString.split(","))
-//                .findFirst()
-//                .map(header -> {
-//                    try {
-//                        String[] data = taskString.split(",");
-//                        TaskType taskType = TaskType.valueOf(data[1]);
+//        String[] data = taskString.replaceAll("[\"\\s]", "").split(",");
 //
-//                        return switch (taskType) {
-//                            case TASK -> {
-//                                Task task = new Task(taskString);
-//                                tasks.put(task.getId(), task);
-//                                yield task;
-//                            }
-//                            case EPIC -> {
-//                                Epic epic = new Epic(taskString); // Конструктор Epic парсит список subtaskId
-//                                epics.put(epic.getId(), epic);
-//                                yield epic;
-//                            }
-//                            case SUBTASK -> {
-//                                Subtask subtask = new Subtask(taskString);
-//                                if (epics.containsKey(subtask.getEpicId())) {
-//                                    subtasks.put(subtask.getId(), subtask);
-//                                    Epic epicForSubtask = epics.get(subtask.getEpicId());
-//                                    epicForSubtask.getSubtaskId().add(subtask.getId()); // Добавляем subtask в эпик
-//                                    yield subtask;
-//                                }
-//                                throw new ManagerSaveException("Эпик для сабтаска не найден");
-//                            }
-//                            default -> throw new ManagerSaveException("Неподдерживаемый тип задачи");
-//                        };
-//                    } catch (IllegalArgumentException e) {
-//                        throw new ManagerSaveException("Ошибка парсинга строки: " + taskString, e);
+//        try {
+//            TaskType taskType = TaskType.valueOf(data[1]);
+//            System.out.println(taskType);
+//            switch (taskType) {
+//                case TASK:
+//                    Task task = new Task(taskString.replaceAll("[\"\\s]", ""));
+//                    tasks.put(task.getId(), task);
+//                    return task;
+//                case EPIC:
+//                    Epic epic = new Epic(taskString.replaceAll("[\"\\s]", "")); // Конструктор Epic теперь парсит список subtaskId
+//                    epics.put(epic.getId(), epic);
+//                    return epic;
+//                case SUBTASK:
+//                    Subtask subtask = new Subtask(taskString.replaceAll("[\"\\s]", ""));
+//                    if (epics.containsKey(subtask.getEpicId())) {
+//                        subtasks.put(subtask.getId(), subtask);
+//                        Epic epicForSubtask = epics.get(subtask.getEpicId());
+//                        epicForSubtask.getSubtaskId().add(subtask.getId()); // Добавляем subtask в эпик
+//                        return subtask;
 //                    }
-//                })
-//                .orElseThrow(() -> new ManagerSaveException("Пустая строка для парсинга"));
+//                    throw new ManagerSaveException("Эпик для сабтаска не найден");
+//                default:
+//                    throw new ManagerSaveException("Неподдерживаемый тип задачи");
+//            }
+//        } catch (IllegalArgumentException e) {
+//            throw new ManagerSaveException("Ошибка парсинга строки: " + taskString, e);
+//        }
 //    }
+
+    private Task fromString(String taskString) throws ManagerSaveException {
+        return Arrays.stream(taskString.replaceAll("[\"\\s]", "").split(","))
+                .findFirst()
+                .map(header -> {
+                    try {
+                        String[] data = taskString.split(",");
+                        TaskType taskType = TaskType.valueOf(data[1].replaceAll("[\"\\s]", ""));
+
+                        return switch (taskType) {
+                            case TASK -> {
+                                Task task = new Task(taskString.replaceAll("[\"\\s]", ""));
+                                tasks.put(task.getId(), task);
+                                yield task;
+                            }
+                            case EPIC -> {
+                                Epic epic = new Epic(taskString.replaceAll("[\"\\s]", "")); // Конструктор Epic парсит список subtaskId
+                                epics.put(epic.getId(), epic);
+                                yield epic;
+                            }
+                            case SUBTASK -> {
+                                Subtask subtask = new Subtask(taskString.replaceAll("[\"\\s]", ""));
+                                if (epics.containsKey(subtask.getEpicId())) {
+                                    subtasks.put(subtask.getId(), subtask);
+                                    Epic epicForSubtask = epics.get(subtask.getEpicId());
+                                    epicForSubtask.getSubtaskId().add(subtask.getId()); // Добавляем subtask в эпик
+                                    yield subtask;
+                                }
+                                throw new ManagerSaveException("Эпик для сабтаска не найден");
+                            }
+                            default -> throw new ManagerSaveException("Неподдерживаемый тип задачи");
+                        };
+                    } catch (IllegalArgumentException e) {
+                        throw new ManagerSaveException("Ошибка парсинга строки: " + taskString, e);
+                    }
+                })
+                .orElseThrow(() -> new ManagerSaveException("Пустая строка для парсинга"));
+    }
 
     @Override
     public Epic createEpic(Epic epic) {
